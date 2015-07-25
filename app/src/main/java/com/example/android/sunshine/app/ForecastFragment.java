@@ -57,6 +57,8 @@ public class ForecastFragment extends Fragment {
 
         if (id == R.id.action_refresh) {
             Log.d(LOG_TAG, "action_refresh menu item tapped");
+            FetchWeatherTask fetchWeatherTask = new FetchWeatherTask();
+            fetchWeatherTask.execute();
             return true;
         }
 
@@ -120,7 +122,9 @@ public class ForecastFragment extends Fragment {
                 // Construct the URL for the OpenWeatherMap query
                 // Possible parameters are avaiable at OWM's forecast API page, at
                 // http://openweathermap.org/API#forecast
-                URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q=94043&mode=json&units=metric&cnt=7");
+//                URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q=94043&mode=json&units=metric&cnt=7");
+
+                URL url = new URL("http://api.openweathermap.org/data/2.5/forecast?id=2179538&mode=json&units=metric&cnt=7"); // Wellington
 //                URL url = new URL(strings[0]);
 
                 // Create the request to OpenWeatherMap, and open the connection
@@ -150,6 +154,7 @@ public class ForecastFragment extends Fragment {
                     return null;
                 }
                 forecastJsonStr = buffer.toString();
+                Log.d(LOG_TAG, forecastJsonStr);
             } catch (IOException e) {
                 Log.e(LOG_TAG, "Error ", e);
                 // If the code didn't successfully get the weather data, there's no point in attemping
