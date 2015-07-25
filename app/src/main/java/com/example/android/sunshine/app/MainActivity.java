@@ -1,29 +1,25 @@
 package com.example.android.sunshine.app;
 
-import android.support.v7.app.ActionBarActivity;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+// http://api.openweathermap.org/data/2.5/forecast?id=2179538&mode=xml   Wellington
+//http://api.openweathermap.org/data/2.5/forecast/daily?q=94043,us&mode=json&units=metric&cnt=7
+//http://api.openweathermap.org/data/2.5/forecast?zip=6021,nz&units=metric&cnt=7  postcode 6021 Berhampore
 
 public class MainActivity extends ActionBarActivity {
 
+    private final String LOG_TAG = MainActivity.class.getSimpleName();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
+                    .add(R.id.container, new ForecastFragment())
                     .commit();
         }
     }
@@ -42,42 +38,16 @@ public class MainActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        if (id == R.id.action_refresh) {
+            Log.d(LOG_TAG, "action_refresh menu item tapped");
+            return true;
+        }
+
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-
-        ArrayAdapter<String> forecastAdapter;
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-
-
-            String[] data = {"Today - Sunny - 88/63","Yesterday - Wet - 80/61", "Thursday - Overcast - 88/70", "Wednesday - Overcast - 85/72","Tuesday - Wet - 67/70",  "Monday - Overcast - 83/77",
-                    "Sunday - Mild - 78/77",  "Saturday - Warm - 84/78", "Friday - Wet - 80/78", "Thursday - Overcast - 88/70","Wednesday - Overcast - 85/72","Tuesday - Wet - 67/70",  "Monday - Overcast - 83/77"};
-
-            List<String> weekForecast = new ArrayList<String>(Arrays.asList(data));
-
-            forecastAdapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item_forecast, R.id.list_item_forecast_textview, weekForecast);
-
-            View rootView = inflater.inflate(R.layout.fragment_main, container, false);
-
-            ListView listView = (ListView)rootView.findViewById(R.id.listview_forecast);
-            listView.setAdapter(forecastAdapter);
-
-            return rootView;
-        }
     }
 }
