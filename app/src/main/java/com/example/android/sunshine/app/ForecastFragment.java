@@ -58,7 +58,7 @@ public class ForecastFragment extends Fragment {
         if (id == R.id.action_refresh) {
             Log.d(LOG_TAG, "action_refresh menu item tapped");
             FetchWeatherTask fetchWeatherTask = new FetchWeatherTask();
-            fetchWeatherTask.execute();
+            fetchWeatherTask.execute("http://api.openweathermap.org/data/2.5/forecast?id=2179538&mode=json&units=metric&cnt=7");
             return true;
         }
 
@@ -98,7 +98,7 @@ public class ForecastFragment extends Fragment {
         return rootView;
     }
 
-    public class FetchWeatherTask extends AsyncTask<Void, Void, Void> {
+    public class FetchWeatherTask extends AsyncTask<String, Void, Void> {
 
         private final String LOG_TAG = FetchWeatherTask.class.getSimpleName();
 
@@ -107,7 +107,7 @@ public class ForecastFragment extends Fragment {
         }
 
         @Override
-        protected Void doInBackground(Void...params) {
+        protected Void doInBackground(String...params) {
             // Get weather data.
 
             // These two need to be declared outside the try/catch
@@ -124,8 +124,8 @@ public class ForecastFragment extends Fragment {
                 // http://openweathermap.org/API#forecast
 //                URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q=94043&mode=json&units=metric&cnt=7");
 
-                URL url = new URL("http://api.openweathermap.org/data/2.5/forecast?id=2179538&mode=json&units=metric&cnt=7"); // Wellington
-//                URL url = new URL(strings[0]);
+//                URL url = new URL("http://api.openweathermap.org/data/2.5/forecast?id=2179538&mode=json&units=metric&cnt=7"); // Wellington
+                URL url = new URL(params[0]);
 
                 // Create the request to OpenWeatherMap, and open the connection
                 urlConnection = (HttpURLConnection) url.openConnection();
