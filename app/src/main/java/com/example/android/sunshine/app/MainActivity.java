@@ -2,7 +2,6 @@ package com.example.android.sunshine.app;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -13,6 +12,7 @@ import android.view.MenuItem;
 public class MainActivity extends ActionBarActivity {
 
     private final String LOG_TAG = MainActivity.class.getSimpleName();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,10 +38,10 @@ public class MainActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        if (id == R.id.action_refresh) {
-            Log.d(LOG_TAG, "action_refresh menu item tapped");
-            return true;
-        }
+//        if (id == R.id.action_refresh) {
+//            Log.d(LOG_TAG, "action_refresh menu item tapped");
+//            return true;
+//        }
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
