@@ -65,12 +65,12 @@ public class MainActivity extends ActionBarActivity {
                                  Bundle savedInstanceState) {
 
 
-            String[] data = {"Today - Sunny - 88/63","Yesterday - Wet - 80/61", "Thursday - Overcast - 88/70"};
+            String[] data = {"Today - Sunny - 88/63","Yesterday - Wet - 80/61", "Thursday - Overcast - 88/70", "Wednesday - Overcast - 85/72","Tuesday - Wet - 67/70",  "Monday - Overcast - 83/77",
+                    "Sunday - Mild - 78/77",  "Saturday - Warm - 84/78", "Friday - Wet - 80/78", "Thursday - Overcast - 88/70","Wednesday - Overcast - 85/72","Tuesday - Wet - 67/70",  "Monday - Overcast - 83/77"};
 
             List<String> weekForecast = new ArrayList<String>(Arrays.asList(data));
 
             forecastAdapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item_forecast, R.id.list_item_forecast_textview, weekForecast);
-
 
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
