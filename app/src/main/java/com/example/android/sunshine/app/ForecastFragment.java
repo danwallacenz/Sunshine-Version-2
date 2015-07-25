@@ -1,5 +1,6 @@
 package com.example.android.sunshine.app;
 
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -57,8 +58,23 @@ public class ForecastFragment extends Fragment {
 
         if (id == R.id.action_refresh) {
             Log.d(LOG_TAG, "action_refresh menu item tapped");
+
+            Uri.Builder builder = new Uri.Builder();
+            builder.scheme("http")
+                    .authority("api.openweathermap.org")
+                    .appendPath("data")
+                    .appendPath("2.5")
+                    .appendPath("forecast")
+                    .appendQueryParameter("id", "2179538")
+                    .appendQueryParameter("mode", "json")
+                    .appendQueryParameter("units", "metric")
+                    .appendQueryParameter("cnt", "7");
+            String weatherUrl = builder.build().toString();
+
             FetchWeatherTask fetchWeatherTask = new FetchWeatherTask();
-            fetchWeatherTask.execute("http://api.openweathermap.org/data/2.5/forecast?id=2179538&mode=json&units=metric&cnt=7");
+//            fetchWeatherTask.execute("http://api.openweathermap.org/data/2.5/forecast?id=2179538&mode=json&units=metric&cnt=7");
+            fetchWeatherTask.execute(weatherUrl);
+
             return true;
         }
 
@@ -68,7 +84,6 @@ public class ForecastFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
 
         String[] data = {"Today - Sunny - 88/63",
                 "Yesterday - Wet - 80/61",
