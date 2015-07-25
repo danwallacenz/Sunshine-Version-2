@@ -57,23 +57,26 @@ public class ForecastFragment extends Fragment {
         int id = item.getItemId();
 
         if (id == R.id.action_refresh) {
-            Log.d(LOG_TAG, "action_refresh menu item tapped");
+//            Log.d(LOG_TAG, "action_refresh menu item tapped");
 
-            Uri.Builder builder = new Uri.Builder();
-            builder.scheme("http")
-                    .authority("api.openweathermap.org")
-                    .appendPath("data")
-                    .appendPath("2.5")
-                    .appendPath("forecast")
-                    .appendQueryParameter("id", "2179538")
-                    .appendQueryParameter("mode", "json")
-                    .appendQueryParameter("units", "metric")
-                    .appendQueryParameter("cnt", "7");
-            String weatherUrl = builder.build().toString();
+//            Uri.Builder builder = new Uri.Builder();
+//            builder.scheme("http")
+//                    .authority("api.openweathermap.org")
+//                    .appendPath("data")
+//                    .appendPath("2.5")
+//                    .appendPath("forecast")
+//                    .appendQueryParameter("id", "2179538")
+//                    .appendQueryParameter("mode", "json")
+//                    .appendQueryParameter("units", "metric")
+//                    .appendQueryParameter("cnt", "7");
+//            String weatherUrl = builder.build().toString();
 
             FetchWeatherTask fetchWeatherTask = new FetchWeatherTask();
 //            fetchWeatherTask.execute("http://api.openweathermap.org/data/2.5/forecast?id=2179538&mode=json&units=metric&cnt=7");
-            fetchWeatherTask.execute(weatherUrl);
+//            fetchWeatherTask.execute(weatherUrl);
+            String cityId = "2179538";
+            fetchWeatherTask.execute(cityId);
+
 
             return true;
         }
@@ -140,7 +143,20 @@ public class ForecastFragment extends Fragment {
 //                URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q=94043&mode=json&units=metric&cnt=7");
 
 //                URL url = new URL("http://api.openweathermap.org/data/2.5/forecast?id=2179538&mode=json&units=metric&cnt=7"); // Wellington
-                URL url = new URL(params[0]);
+//                URL url = new URL(params[0]);
+
+                Uri.Builder builder = new Uri.Builder();
+                builder.scheme("http")
+                        .authority("api.openweathermap.org")
+                        .appendPath("data")
+                        .appendPath("2.5")
+                        .appendPath("forecast")
+                        .appendQueryParameter("id", params[0]) // city id
+                        .appendQueryParameter("mode", "json")
+                        .appendQueryParameter("units", "metric")
+                        .appendQueryParameter("cnt", "7");
+                String weatherUri = builder.build().toString();
+                URL url = new URL(weatherUri);
 
                 // Create the request to OpenWeatherMap, and open the connection
                 urlConnection = (HttpURLConnection) url.openConnection();
