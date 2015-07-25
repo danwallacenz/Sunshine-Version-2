@@ -59,12 +59,9 @@ public class ForecastFragment extends Fragment {
         if (id == R.id.action_refresh) {
 
             FetchWeatherTask fetchWeatherTask = new FetchWeatherTask();
-//            String cityId = "2179538";
-//            fetchWeatherTask.execute(cityId);
-//            Log.d(LOG_TAG, "finding weather for city " + cityId);
-
             String postcode = "6021,nz";
             fetchWeatherTask.execute(postcode);
+            
             Log.d(LOG_TAG, "finding weather for postcode " + postcode);
 
             return true;
@@ -127,24 +124,11 @@ public class ForecastFragment extends Fragment {
                 // Construct the URL for the OpenWeatherMap query
                 // Possible parameters are avaiable at OWM's forecast API page, at
                 // http://openweathermap.org/API#forecast
-//                URL url = new URL("http://api.openweathermap.org/data/2.5/forecast/daily?q=94043,us&mode=json&units=metric&cnt=7");
-                // http://api.openweathermap.org/data/2.5/forecast?zip=6021,nz&units=metric&cnt=7
-//                URL url = new URL("http://api.openweathermap.org/data/2.5/forecast?id=2179538&mode=json&units=metric&cnt=7"); // Wellington
-//                 http://api.openweathermap.org/data/2.5/forecast/daily?q=6021,nz&mode=json&units=metric&cnt=7 // Berhampore
-//                URL url = new URL(params[0]);
 
-//                Uri.Builder builder = new Uri.Builder();
-//                builder.scheme("http")
-//                        .authority("api.openweathermap.org")
-//                        .appendPath("data")
-//                        .appendPath("2.5")
-//                        .appendPath("forecast")
-//                        .appendQueryParameter("id", params[0]) // city id
-//                        .appendQueryParameter("mode", "json")
-//                        .appendQueryParameter("units", "metric")
-//                        .appendQueryParameter("cnt", "7");
-//                String cityIdWeatherUri = builder.build().toString();
-//                URL url = new URL(cityIdWeatherUri);
+                // http://api.openweathermap.org/data/2.5/forecast/daily?q=94043,us&mode=json&units=metric&cnt=7");
+                // http://api.openweathermap.org/data/2.5/forecast?zip=6021,nz&units=metric&cnt=7
+                // http://api.openweathermap.org/data/2.5/forecast?id=2179538&mode=json&units=metric&cnt=7"); // Wellington
+                // http://api.openweathermap.org/data/2.5/forecast/daily?q=6021,nz&mode=json&units=metric&cnt=7 // Berhampore
 
                 Uri.Builder builder = new Uri.Builder();
                 builder.scheme("http")
@@ -159,9 +143,7 @@ public class ForecastFragment extends Fragment {
                         .appendQueryParameter("cnt", "7");
                 String cityPostcodeWeatherUri = builder.build().toString();
 
-                // http://api.openweathermap.org/data/2.5/forecast/daily?q=6021,nz&mode=json&units=metric&cnt=7
                 URL url = new URL(cityPostcodeWeatherUri);
-
 
                 // Create the request to OpenWeatherMap, and open the connection
                 urlConnection = (HttpURLConnection) url.openConnection();
