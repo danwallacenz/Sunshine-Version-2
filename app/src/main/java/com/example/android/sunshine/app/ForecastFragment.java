@@ -61,7 +61,7 @@ public class ForecastFragment extends Fragment {
             FetchWeatherTask fetchWeatherTask = new FetchWeatherTask();
             String postcode = "6021,nz";
             fetchWeatherTask.execute(postcode);
-            
+
             Log.d(LOG_TAG, "finding weather for postcode " + postcode);
 
             return true;
@@ -120,6 +120,10 @@ public class ForecastFragment extends Fragment {
             // Will contain the raw JSON response as a string.
             String forecastJsonStr = null;
 
+            String format = "json";
+            String units = "metric";
+            int numberOfDays = 7;
+
             try {
                 // Construct the URL for the OpenWeatherMap query
                 // Possible parameters are avaiable at OWM's forecast API page, at
@@ -129,21 +133,37 @@ public class ForecastFragment extends Fragment {
                 // http://api.openweathermap.org/data/2.5/forecast?zip=6021,nz&units=metric&cnt=7
                 // http://api.openweathermap.org/data/2.5/forecast?id=2179538&mode=json&units=metric&cnt=7"); // Wellington
                 // http://api.openweathermap.org/data/2.5/forecast/daily?q=6021,nz&mode=json&units=metric&cnt=7 // Berhampore
+                // http://api.openweathermap.org/2.5/forecast/daily?q=6021%2Cnz&mode=json&units=metric&cnt=7
 
-                Uri.Builder builder = new Uri.Builder();
-                builder.scheme("http")
-                        .authority("api.openweathermap.org")
-                        .appendPath("data")
-                        .appendPath("2.5")
-                        .appendPath("forecast")
-                        .appendPath("daily")
-                        .appendQueryParameter("q", params[0]) // postcode
-                        .appendQueryParameter("mode", "json")
-                        .appendQueryParameter("units", "metric")
-                        .appendQueryParameter("cnt", "7");
-                String cityPostcodeWeatherUri = builder.build().toString();
+                final String FORECAST_BASE_URL = "http://api.openweathermap.org/data/2.5/forecast/daily?";
+                final String QUERY_PARAM = "q";
+                final String FORMAT_PARAM = "mode";
+                final String UNITS_PARAM = "units";
+                final String DAYS_PARAM = "cnt";
 
-                URL url = new URL(cityPostcodeWeatherUri);
+                Uri builtUri = Uri.parse(FORECAST_BASE_URL).buildUpon()
+                        .appendQueryParameter(QUERY_PARAM,params[0])
+                        .appendQueryParameter(FORMAT_PARAM,format)
+                        .appendQueryParameter(UNITS_PARAM,units)
+                        .appendQueryParameter(DAYS_PARAM,Integer.toString(numberOfDays))
+                        .build();
+
+
+//                Uri.Builder builder = new Uri.Builder();
+//                builder.scheme("http")
+//                        .authority("api.openweathermap.org")
+//                        .appendPath("data")
+//                        .appendPath("2.5")
+//                        .appendPath("forecast")
+//                        .appendPath("daily")
+//                        .appendQueryParameter("q", params[0]) // postcode
+//                        .appendQueryParameter("mode", "json")
+//                        .appendQueryParameter("units", "metric")
+//                        .appendQueryParameter("cnt", "7");
+//                String cityPostcodeWeatherUri = builder.build().toString();
+
+                URL url = new URL(builtUri.toString());
+                Log.v(LOG_TAG, "Built URI " + builtUri.toString());
 
                 // Create the request to OpenWeatherMap, and open the connection
                 urlConnection = (HttpURLConnection) url.openConnection();
