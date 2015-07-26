@@ -112,12 +112,17 @@ public class ForecastFragment extends Fragment {
         private final String LOG_TAG = FetchWeatherTask.class.getSimpleName();
 
         protected void onPostExecute(String[] resultStrs) {
-//            Log.d(LOG_TAG, s);
-            for (String s : resultStrs) {
-                Log.v(LOG_TAG, "Forecast entry: " + s);
+            if (resultStrs != null) {
+                forecastAdapter.clear();
+                for (String dayForecastStr : resultStrs) {
+                    forecastAdapter.add(dayForecastStr);
+                }
             }
-            List<String> weekForecast = new ArrayList<String>(Arrays.asList(resultStrs));
-            forecastAdapter.addAll(resultStrs);
+//            for (String s : resultStrs) {
+//                Log.v(LOG_TAG, "Forecast entry: " + s);
+//            }
+//            List<String> weekForecast = new ArrayList<String>(Arrays.asList(resultStrs));
+//            forecastAdapter.addAll(resultStrs);
         }
 
         @Override
@@ -175,7 +180,7 @@ public class ForecastFragment extends Fragment {
 //                String cityPostcodeWeatherUri = builder.build().toString();
 
                 URL url = new URL(builtUri.toString());
-                Log.v(LOG_TAG, "Built URI " + builtUri.toString());
+//                Log.v(LOG_TAG, "Built URI " + builtUri.toString());
 
                 // Create the request to OpenWeatherMap, and open the connection
                 urlConnection = (HttpURLConnection) url.openConnection();
@@ -205,7 +210,7 @@ public class ForecastFragment extends Fragment {
                 }
                 forecastJsonStr = buffer.toString();
 
-                Log.d(LOG_TAG, forecastJsonStr);
+//                Log.d(LOG_TAG, forecastJsonStr);
 
                 String[] weatherDays = getWeatherDataFromJson(forecastJsonStr, numberOfDays);
 
