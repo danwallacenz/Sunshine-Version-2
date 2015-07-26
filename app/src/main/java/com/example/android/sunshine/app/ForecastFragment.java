@@ -121,6 +121,8 @@ public class ForecastFragment extends Fragment {
 //            for (String s : resultStrs) {
 //                Log.v(LOG_TAG, "Forecast entry: " + s);
 //            }
+            
+            // More efficient - only updates ListView once.
 //            List<String> weekForecast = new ArrayList<String>(Arrays.asList(resultStrs));
 //            forecastAdapter.addAll(resultStrs);
         }
