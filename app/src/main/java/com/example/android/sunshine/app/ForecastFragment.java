@@ -204,7 +204,7 @@ public class ForecastFragment extends Fragment {
 
                 Log.d(LOG_TAG, forecastJsonStr);
 
-                String[] weatherDays = getWeatherDataFromJson(forecastJsonStr, 7);
+                String[] weatherDays = getWeatherDataFromJson(forecastJsonStr, numberOfDays);
 
                 return weatherDays;
 
