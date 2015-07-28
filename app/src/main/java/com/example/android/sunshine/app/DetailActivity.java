@@ -1,42 +1,3 @@
-//package com.example.android.sunshine.app;
-//
-//import android.support.v7.app.ActionBarActivity;
-//import android.os.Bundle;
-//import android.view.Menu;
-//import android.view.MenuItem;
-//
-//
-//public class DetailActivity extends ActionBarActivity {
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_detail);
-//    }
-//
-//
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.detail, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
-//}
 /*
  * Copyright (C) 2014 The Android Open Source Project
  *
@@ -57,15 +18,9 @@ package com.example.android.sunshine.app;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.TextView;
 
 public class DetailActivity extends ActionBarActivity {
 
@@ -77,24 +32,14 @@ public class DetailActivity extends ActionBarActivity {
         setContentView(R.layout.activity_detail);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
+                    .add(R.id.container, new DetailActivityFragment())
                     .commit();
         }
 
         // Get the message from the intent
         Intent intent = getIntent();
         String message = intent.getStringExtra(Intent.EXTRA_TEXT);
-        Log.d(LOG_TAG, "forecast = " + message);
-
-        // Create the text view
-        TextView textView = new TextView(this);
-        textView.setTextSize(40);
-        textView.setText(message);
-
-
-        // Set the text view as the activity layout
-//        setContentView(textView);
-
+//        Log.d(LOG_TAG, "forecast = " + message);
     }
 
 
@@ -118,39 +63,5 @@ public class DetailActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-
-        private final String LOG_TAG = PlaceholderFragment.class.getSimpleName();
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-
-            View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
-
-            Intent intent = getActivity().getIntent();
-            String message = intent.getStringExtra(Intent.EXTRA_TEXT);
-
-            Log.d(LOG_TAG, "forecast = " + message);
-            TextView textView = (TextView)rootView.findViewById(R.id.detail_text_view);
-            textView.setText(message);
-
-            // Create the text view
-//            TextView textView = new TextView(getActivity());
-//            textView.setTextSize(40);
-//            textView.setText(message);
-
-
-
-
-            return rootView;
-        }
     }
 }
