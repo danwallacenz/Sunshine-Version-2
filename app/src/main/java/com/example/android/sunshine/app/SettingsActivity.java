@@ -22,7 +22,7 @@ public class SettingsActivity extends PreferenceActivity
         super.onCreate(savedInstanceState);
         // Add 'general' pref_general, defined in the XML file
         // TODO: Add preferencesl from XML
-        addPreferencesFromResource(R.xml.pref_general);
+            addPreferencesFromResource(R.xml.pref_general);
 
         // For all preferences, attach an OnPreferenceChangeListener so the UI summary can be
         // updated when the preference changes.

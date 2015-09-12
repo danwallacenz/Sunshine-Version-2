@@ -18,7 +18,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,8 +31,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -93,24 +90,16 @@ public class ForecastFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-//        String[] data = {"Today - Sunny - 88/63",
-//                "Yesterday - Wet - 80/61",
-//                "Thursday - Overcast - 88/70",
-//                "Wednesday - Overcast - 85/72",
-//                "Tuesday - Wet - 67/70",
-//                "Monday - Overcast - 83/77",
-//                "Sunday - Mild - 78/77",
-//                "Saturday - Warm - 84/78",
-//                "Friday - Wet - 80/78",
-//                "Thursday - Overcast - 88/70",
-//                "Wednesday - Overcast - 85/72",
-//                "Tuesday - Wet - 67/70",
-//                "Monday - Overcast - 83/77"};
-        String[] data = {};
 
-        List<String> weekForecast = new ArrayList<String>(Arrays.asList(data));
+//        String[] data = {};
+//
+//        List<String> weekForecast = new ArrayList<String>(Arrays.asList(data));
 
-        forecastAdapter = new ArrayAdapter<String>(getActivity(), R.layout.list_item_forecast, R.id.list_item_forecast_textview, weekForecast);
+        forecastAdapter = new ArrayAdapter<String>(getActivity(),
+                R.layout.list_item_forecast,
+                R.id.list_item_forecast_textview,
+//                weekForecast);
+                new ArrayList<String>());
 
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
@@ -119,7 +108,7 @@ public class ForecastFragment extends Fragment {
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-            private Toast toast;
+//            private Toast toast;
 
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
