@@ -148,9 +148,9 @@ public class ForecastFragment extends Fragment {
             String units = "metric";
             int numberOfDays = 7;
 
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-            String temperatureUnits = prefs.getString(getString(R.string.pref_units_key),
-                    getString(R.string.pref_units_default));
+//            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+//            String temperatureUnits = prefs.getString(getString(R.string.pref_units_key),
+//                    getString(R.string.pref_units_default));
 
 
             try {
@@ -224,7 +224,7 @@ public class ForecastFragment extends Fragment {
 
 //                Log.d(LOG_TAG, forecastJsonStr);
 
-                String[] weatherDays = getWeatherDataFromJson(forecastJsonStr, numberOfDays, temperatureUnits);
+                String[] weatherDays = getWeatherDataFromJson(forecastJsonStr, numberOfDays);
 
                 return weatherDays;
 
@@ -264,13 +264,17 @@ public class ForecastFragment extends Fragment {
         /**
          * Prepare the weather high/lows for presentation.
          */
-        private String formatHighLows(double high, double low, String unitType) {
+        private String formatHighLows(double high, double low) {
 
-            if (unitType.equals(getString(R.string.pref_units_imperial))) {
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+            String temperatureUnits = prefs.getString(getString(R.string.pref_units_key),
+                    getString(R.string.pref_units_default));
+
+            if (temperatureUnits.equals(getString(R.string.pref_units_imperial))) {
                 high = (high * 1.8) + 32;
                 low = (low * 1.8) + 32;
-            } else if (!unitType.equals(getString(R.string.pref_units_metric))) {
-                Log.d(LOG_TAG, "Unit type not found: " + unitType);
+            } else if (!temperatureUnits.equals(getString(R.string.pref_units_metric))) {
+                Log.d(LOG_TAG, "Unit type not found: " + temperatureUnits);
             }
 
             // For presentation, assume the user doesn't care about tenths of a degree.
@@ -288,7 +292,7 @@ public class ForecastFragment extends Fragment {
          * Fortunately parsing is easy:  constructor takes the JSON string and converts it
          * into an Object hierarchy for us.
          */
-        private String[] getWeatherDataFromJson(String forecastJsonStr, int numDays, String unitType)
+        private String[] getWeatherDataFromJson(String forecastJsonStr, int numDays)
                 throws JSONException {
 
             // These are the names of the JSON objects that need to be extracted.
@@ -347,7 +351,7 @@ public class ForecastFragment extends Fragment {
                 double high = temperatureObject.getDouble(OWM_MAX);
                 double low = temperatureObject.getDouble(OWM_MIN);
 
-                highAndLow = formatHighLows(high, low, unitType);
+                highAndLow = formatHighLows(high, low);
                 resultStrs[i] = day + " - " + description + " - " + highAndLow;
             }
 
