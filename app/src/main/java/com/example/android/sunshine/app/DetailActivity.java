@@ -61,7 +61,7 @@ public class DetailActivity extends ActionBarActivity {
         if (id == R.id.action_settings) {
             // TODO: do the settings intent here
 
-            Intent settingsIntent = new Intent(getApplicationContext(), SettingsActivity.class);
+            Intent settingsIntent = new Intent(this, SettingsActivity.class);
             startActivity(settingsIntent);
 
             return true;
