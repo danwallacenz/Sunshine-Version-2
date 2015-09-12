@@ -68,23 +68,25 @@ public class ForecastFragment extends Fragment {
         int id = item.getItemId();
 
         if (id == R.id.action_refresh) {
-
-            FetchWeatherTask fetchWeatherTask = new FetchWeatherTask();
-
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-            String postcode = prefs.getString(getString(R.string.pref_location_key),
-                    getString(R.string.pref_location_default));
-            Log.d(LOG_TAG, "postcode = " + postcode);
-
-//            String postcode = "6021,nz";
-            fetchWeatherTask.execute(postcode);
-
-            Log.d(LOG_TAG, "finding weather for postcode " + postcode);
-
+            updateWeather();
             return true;
         }
-
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        updateWeather();
+    }
+
+    private void updateWeather() {
+        FetchWeatherTask fetchWeatherTask = new FetchWeatherTask();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        String postcode = prefs.getString(getString(R.string.pref_location_key),
+                getString(R.string.pref_location_default));
+        fetchWeatherTask.execute(postcode);
+        Log.d(LOG_TAG, "finding weather for postcode " + postcode);
     }
 
     @Override
