@@ -25,5 +25,14 @@
     <!-- Key name for storing unites in SharedPreferences [CHAR LIMIT=NONE] -->
     <string name="pref_units_key" translatable="false">units</string>
 
+    <!-- Key name for storing default units in SharedPreferences [CHAR LIMIT=NONE] -->
+    <string name="pref_units_default" translatable="false">metric</string>
+
+    <!-- Key name for storing default units in SharedPreferences [CHAR LIMIT=NONE] -->
+    <string name="pref_units_metric" translatable="false">metric</string>
+
+    <!-- Key name for storing default units in SharedPreferences [CHAR LIMIT=NONE] -->
+    <string name="pref_units_imperial" translatable="false">imperial</string>
+
 
 </resources>
