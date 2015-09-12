@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="Sunshine Settings">
+
+        <!--<EditTextPreference-->
+            <!--android:key="location_preference"-->
+            <!--android:title="Location"-->
+            <!--android:defaultValue="6021,nz"-->
+            <!--android:summary="What's the weather forecast?"-->
+            <!--android:dialogTitle="Enter your post-code (9999, nz)"-->
+            <!--android:inputType="text"-->
+            <!--android:singleLine="true"/>-->
+
+        <EditTextPreference
+            android:title="@string/pref_location_label"
+            android:key="@string/pref_location_key"
+            android:defaultValue="@string/pref_location_default"
+            android:inputType="text"
+            android:singleLine="true" />
+
+        <!--</PreferenceCategory>-->
+    <!-- -->
+        <!--<PreferenceCategory android:title="Choose your prefered units">-->
+
+        <ListPreference
+            android:defaultValue="Metric"
+            android:dialogTitle="My Prefered Units"
+            android:entries="@array/entries_units_list_preferences"
+            android:entryValues="@array/entryvalues_units_list_preferences"
+            android:key="@string/pref_units_key"
+            android:summary="Select your prefered units"
+            android:title="@string/pref_units_label" />
+
+
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
